@@ -1,0 +1,59 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-green"></i>
+            <span class="caption-subject font-green uppercase">Add Additional IPs for {echo $server['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/servers/ips/save.html" class="horizontal-form validated-form" method="POST">
+            <div class="form-body">
+                <input type="hidden" name="server-id" value="{echo $server['id']}">
+                <div class="note note-info">
+                    <h4 class="block">Info! How it Works</h4>
+                    <p> 
+                        For Individual IPs : ip;gateway;netmask (eg : 192.168.1.3;192.168.1.1;255.255.255.0 )
+                        <br/><br/>
+                        For Ranges : firstIp;lastIp;gateway;netmask (eg : 192.168.1.3;192.168.1.12;192.168.1.1;255.255.255.0 this will add 10 ips )
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">IPs Configuration Method</label>
+                            <div class="md-radio-inline">
+                                <div class="md-radio">
+                                    <input type="radio" id="radio14" name="ips-process-type" class="md-radiobtn" checked value="indiv" />
+                                    <label for="radio14">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Add Individual IPs </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="radio15" name="ips-process-type" class="md-radiobtn" value="range" />
+                                    <label for="radio15">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Add IPs Ranges </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">IPs List</label>
+                            <textarea class="form-control" style="height: 300px;" name="ips" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Add</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

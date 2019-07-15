@@ -1,0 +1,58 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Add New Creative For <span class="bold">{echo $offer['name']}</span></span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/offers/creatives/save.html" class="horizontal-form" method="POST">
+            <input type="hidden" value="{echo $offer['id']}" name="offer-id" />
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label class="control-label">Creative HTML</label>
+                            <textarea class="form-control" style="height: 500px;" name="creative-html" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option value="{echo $row['id']}" {if(strtolower($row['name']) == 'activated')} selected {/if}>{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3>Creative Links</h3>
+                <div class="row" style="height: 20px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Preview Link</label>
+                            <input type="text" name="preview-link" class="form-control" placeholder="Enter Preview Link">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Unsubscribe Link</label>
+                            <input type="text" name="unsub-link" class="form-control" placeholder="Enter Unsubscribe Link">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Save</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

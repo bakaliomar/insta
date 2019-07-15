@@ -1,0 +1,349 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage Offer : {echo $offer['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/offers/save.html" class="horizontal-form" method="POST">
+            <input type="hidden" name="id" value="{echo $offer['id']}">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Offer Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Offer Name" value="{echo $offer['name']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Production ID</label>
+                            <input type="text" name="production-id" class="form-control" placeholder="Enter Production ID" value="{echo $offer['production_id']}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Sponsor</label>
+                            <select class="form-control" name="sponsor-id">
+                                <option value="">Select a Sponsor ...</option>
+                                {if(isset($sponsors) && count($sponsors)>0)}
+                                    {foreach $row in $sponsors}
+                                        <option {if($row['id'] == $offer['sponsor_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Vertical</label>
+                            <select class="form-control" name="vertical-id">
+                                <option value="">Select a Vertical ...</option>
+                                {if(isset($verticals) && count($verticals)>0)}
+                                    {foreach $row in $verticals}
+                                        <option {if($row['id'] == $offer['vertical_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control" name="status-id">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option {if($row['id'] == $offer['status_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Flag</label>
+                            <select class="form-control" name="flag">
+                                <option value="">Select a Flag ...</option>
+                                <option {if($offer['flag'] == 'US')} selected="selected" {/if} value="US">US</option>
+                                <option {if($offer['flag'] == 'UK')} selected="selected" {/if} value="UK">UK</option>
+                                <option {if($offer['flag'] == 'ALL')} selected="selected" {/if} value="ALL">ALL</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Description</label>
+                            <textarea class="form-control" style="height: 200px;" name="description" spellcheck="false">{echo base64_decode($offer['description'])}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Rules</label>
+                            <textarea class="form-control" style="height: 200px;" name="rules" spellcheck="false">{echo base64_decode($offer['rules'])}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Offer Launching Date</label>
+                            <input type="text" name="launch-date" class="form-control date-picker" placeholder="Enter Offer Launching Date" value="{echo $offer['launch_date']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Offer Expiring Date</label>
+                            <input type="text" name="expiring-date" class="form-control date-picker" placeholder="Enter Offer Expiring Date" value="{echo $offer['expiring_date']}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Rate</label>
+                            <input type="text" name="rate" class="form-control" placeholder="Enter Offer Rate" value="{echo $offer['rate']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">EPC</label>
+                            <input type="text" name="epc" class="form-control" placeholder="Enter EPC" value="{echo $offer['epc']}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+        <div class="row">
+            <div class="col-md-12">
+                <!--  -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-list font-blue-dark"></i>
+                            <span class="caption-subject font-blue-dark  uppercase">Available Creatives</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group">
+                                        <a href="{echo $app['app_url']}/offers/creatives/add/{echo $offer['id']}.html" class="btn blue-dark btn-outline"><i class="fa fa-plus"></i> Add Custom Creatives</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="btn-group pull-right">
+                                        <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                                            <i class="fa fa-share"></i>
+                                            <span class="hidden-xs"> Tools </span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right" id="data-list-tools">
+                                            <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                                            <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                                            <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                                            <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                                            <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover data-list" id="creatives-list">
+                            <thead>
+                                <tr>
+                                    {if(isset($creativesColumns) && count($creativesColumns)>0)}
+                                        {foreach $creativeColumn in $creativesColumns}
+                                            <th>{echo ucfirst(str_replace('_',' ',strtolower($creativeColumn)))}</th>
+                                        {/foreach}
+                                    {/if}
+                                    <th class="table-button-th"></th>
+                                    <th class="table-button-th"></th>
+                                    <th class="table-button-th"></th>
+                                    <th class="table-button-th"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {if(isset($creativesList) && count($creativesList)>0)}
+                                    {foreach $row in $creativesList}
+                                        <tr> 
+                                            {if(isset($creativesColumns) && count($creativesColumns)>0)}
+                                                {foreach $creativeColumn in $creativesColumns}
+                                                    <td>{if($row[$creativeColumn] != null && $row[$creativeColumn] != '')}{echo $row[$creativeColumn]}{/if}{else}{echo '<center>-</center>'}{/else}</td>
+                                                {/foreach}
+                                            {/if}
+                                            <td><center><a class="tooltips" data-container="body" data-placement="top" data-original-title="Edit record" href="{echo $app['app_url']}/offers/creatives/edit/{echo $row['id']}.html"><i class="fa fa-edit"></i></a></center></td>
+                                            <td><center><a class="show-creative-links" data-links="{echo $row['creative_links']}" href="#details-modal" role="button" data-toggle="modal"><i class="fa fa-globe"></i></a></center></td>
+                                            <td><center><a class="show-creative-as-html" data-creative-id="{echo $row['id']}" href="javascript:;"><i class="fa fa-desktop"></i></a></center></td>
+                                            <td><center><a class="tooltips font-red confirmation-button" data-container="body" data-placement="top" data-original-title="Delete record" href="{echo $app['app_url']}/offers/creatives/delete/{echo $row['id']}.html"><i class="fa fa-close"></i></a></center></td>
+                                        </tr>
+                                    {/foreach}    
+                                {/if} 
+                            </tbody>
+                        </table>
+                        <div id="details-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="creatives" aria-hidden="true">
+                            <div class="modal-dialog modal-full">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">Drop Details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn green">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: list -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--  -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-list font-blue-dark"></i>
+                            <span class="caption-subject font-blue-dark  uppercase">Available Names</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group">
+                                        <a href="{echo $app['app_url']}/offers/names/add/{echo $offer['id']}.html" class="btn blue-dark btn-outline"><i class="fa fa-plus"></i> Add Custom From Names</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="btn-group pull-right">
+                                        <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                                            <i class="fa fa-share"></i>
+                                            <span class="hidden-xs"> Tools </span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right" id="data-list-tools">
+                                            <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                                            <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                                            <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                                            <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                                            <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered table-hover data-list" id="offer-names-list">
+                                <thead>
+                                    <tr>
+                                        {if(isset($offerNamesColumns) && count($offerNamesColumns)>0)}
+                                            {foreach $offerNameColumn in $offerNamesColumns}
+                                                <th>{echo ucfirst(str_replace('_',' ',strtolower($offerNameColumn)))}</th>
+                                            {/foreach}
+                                        {/if}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {if(isset($offerNamesList) && count($offerNamesList)>0)}
+                                        {foreach $row in $offerNamesList}
+                                            <tr> 
+                                                {if(isset($offerNamesColumns) && count($offerNamesColumns)>0)}
+                                                    {foreach $offerNameColumn in $offerNamesColumns}
+                                                        <td>{if($row[$offerNameColumn] != null && $row[$offerNameColumn] != '')}{echo $row[$offerNameColumn]}{/if}{else}{echo '<center>-</center>'}{/else}</td>
+                                                    {/foreach}
+                                                {/if}
+                                            </tr>
+                                        {/foreach}    
+                                    {/if} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: list -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--  -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-list font-blue-dark"></i>
+                            <span class="caption-subject font-blue-dark  uppercase">Available Subjects</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group">
+                                        <a href="{echo $app['app_url']}/offers/subjects/add/{echo $offer['id']}.html" class="btn blue-dark btn-outline"><i class="fa fa-plus"></i> Add Custom Subjects</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="btn-group pull-right">
+                                        <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                                            <i class="fa fa-share"></i>
+                                            <span class="hidden-xs"> Tools </span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right" id="data-list-tools">
+                                            <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                                            <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                                            <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                                            <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                                            <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered table-hover data-list" id="offer-subjects-list">
+                                <thead>
+                                    <tr>
+                                        {if(isset($offerSubjectsColumns) && count($offerSubjectsColumns)>0)}
+                                            {foreach $offerSubjectColumn in $offerSubjectsColumns}
+                                                <th>{echo ucfirst(str_replace('_',' ',strtolower($offerSubjectColumn)))}</th>
+                                            {/foreach}
+                                        {/if}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {if(isset($offerSubjectsList) && count($offerSubjectsList)>0)}
+                                        {foreach $row in $offerSubjectsList}
+                                            <tr> 
+                                                {if(isset($offerSubjectsColumns) && count($offerSubjectsColumns)>0)}
+                                                    {foreach $offerSubjectColumn in $offerSubjectsColumns}
+                                                        <td>{if($row[$offerSubjectColumn] != null && $row[$offerSubjectColumn] != '')}{echo $row[$offerSubjectColumn]}{/if}{else}{echo '<center>-</center>'}{/else}</td>
+                                                    {/foreach}
+                                                {/if}
+                                            </tr>
+                                        {/foreach}    
+                                    {/if} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: list -->
+            </div>
+        </div>
+    </div>
+</div>

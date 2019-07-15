@@ -1,0 +1,94 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-envelope-open font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Upload Images</span>
+        </div>
+        <div class="tools">
+            <a href="" class="collapse"> </a>
+            <a href="" class="reload"> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/images/upload.html" class="horizontal-form validated-form" method="POST" enctype="multipart/form-data">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Offer Image</label>
+                            <br/>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-xlarge">
+                                    <div class="form-control uneditable-input input-fixed input-xlarge" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Select file </span>
+                                        <span class="fileinput-exists"> Change </span>
+                                        <input type="file" name="offer-image"> </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Unsubscribe Image</label>
+                            <br/>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-xlarge">
+                                    <div class="form-control uneditable-input input-fixed input-xlarge" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Select file </span>
+                                        <span class="fileinput-exists"> Change </span>
+                                        <input type="file" name="unsub-image"> </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">OptOut Image</label>
+                            <br/>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-xlarge">
+                                    <div class="form-control uneditable-input input-fixed input-xlarge" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Select file </span>
+                                        <span class="fileinput-exists"> Change </span>
+                                        <input type="file" name="optout-image"> </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Results</label>
+                            <textarea id="results-textarea" rows="20" class="form-control" readonly="true">{echo $results}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-cloud-upload"></i> Upload</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

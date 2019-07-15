@@ -1,0 +1,121 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage PMTA</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form id="manage-pmta" action="#" class="horizontal-form" method="POST">
+            <input type="hidden" id="pmta-port" value="{echo $pmtaPort}" />
+            <input type="hidden" id="action" name="action" value="" />
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Servers <a href="javascript:;" id="refresh-servers" style="margin-left: 15px;"><i class="fa fa-recycle"></i> Refresh Servers</a>
+                            </label>
+                            <select id="servers" name="servers[]" class="bs-select form-control" multiple data-actions-box="true" placeholder="Select Servers" data-live-search="true"> 
+                                {if(isset($serverProviders) && count($serverProviders)>0)}
+                                    {foreach $provider in $serverProviders}
+                                        <optgroup label="{echo $provider['name']}">
+                                            {if(isset($servers) && count($servers)>0)}
+                                                {foreach $row in $servers}
+                                                    {if($row['provider_id'] == $provider['id'])}
+                                                        <option value="{echo $row['id']}" data-main-ip="{echo $row['main_ip']}">{echo $row['name']}</option>
+                                                    {/if}
+                                                {/foreach}
+                                            {/if}
+                                        </optgroup>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 200px;">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"><br/></label>   
+                                <div class="row">
+                                    <button value="stop-pmta" class="btn red  submit-form" style="margin-top: -2px;"> Stop</button>
+                                    <button value="restart-pmta" class="btn green  submit-form" style="margin-top: -2px;"> Restart</button>
+                                    <button value="reload-pmta" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Reload Config</button>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"><br/></label>   
+                                <div class="row">
+                                    <input type="text" name="queue-parameter" class="form-control input-large" style="display: inline-block;" placeholder="Queues Management" value="">
+                                    <button value="pause-queue" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Pause</button>
+                                    <button value="resume-queue" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Resume</button>
+                                    <button value="clean-queue" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Clean</button>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"><br/></label>   
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" name="schedule-parameter" class="form-control input-large" style="display: inline-block;margin-left: -16px" placeholder="Scedule Management" value="">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" name="schedule-times" class="form-control input-sm" style="display: inline-block;margin-left: -62px" placeholder="Schedule Times" value="1">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button value="schedule-queue" class="btn blue-dark  submit-form" style="margin-top: 0px;margin-left: -87px"> Schedule</button>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"><br/></label>   
+                                <div class="row">
+                                    <input type="text" name="job-id" class="form-control input-large" style="display: inline-block;" placeholder="Jobs Management" value="">
+                                    <button value="show-jobs" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Show</button>
+                                    <button value="delete-job" class="btn blue-dark  submit-form" style="margin-top: -2px;"> Delete</button>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Results </label>
+                            <textarea id="results" class="form-control" style="height: 300px;" spellcheck="false" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <div class="btn-group">
+                    <a href="javascript:;" aria-expanded="false" class="btn red dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> PMTA Monitors <i class="fa fa-angle-down"></i></a>
+                    <ul id="pmta-links" class="dropdown-menu">
+                        <li><a href="javascript:;"> No Servers Selected</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

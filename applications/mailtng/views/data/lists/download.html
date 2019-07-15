@@ -1,0 +1,53 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Download Lists</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="#" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">ISP</label>
+                            <select id="isp" class="form-control bs-select" name="isp-id" title="Select an ISP ...">
+                                {if(isset($isps) && count($isps)>0)}
+                                    {foreach $row in $isps}
+                                        <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>  
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Data Flag</label>
+                            <select id="data-flag" class="form-control bs-select" name="data-flag" title="Select a Flag ...">
+                                <option value="us" selected="true">US</option>
+                                <option value="uk">UK</option>
+                                <option value="eu">EU</option>
+                                <option value="ca">CA</option>
+                                <option value="ot">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Data List</label>
+                            <select id="lists" class="form-control bs-select" name="data-list" title="Select a List ...">
+                            </select>
+                            <span class="help-block" id="data-count-help">Data Count : 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <a class="btn blue-dark download-data" href="javascript:;"><i class="fa fa-download"></i> Download</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

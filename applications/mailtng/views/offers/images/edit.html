@@ -1,0 +1,41 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage {echo $isp['name']} ISP</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/isps/save.html" class="horizontal-form" method="POST">
+            <input type="hidden" name="isp-id"value="{echo $isp['id']}">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">ISP Name</label>
+                            <input type="text" name="isp-name" class="form-control" value="{echo $isp['name']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control" name="status-id">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option {if($row['id'] == $isp['status_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Save Changes</button>
+                <a href="{echo $app['app_url']}/isps/delete/{echo $isp['id']}.html" class="btn btn-danger"><i class="fa fa-remove"></i> Delete Record</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Offers Accessibilities</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form action="{echo $app['app_url']}/accessibilities/offers.html" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Users</label>
+                            <select id="offers-users" name="user-id" class="bs-select form-control" placeholder="Select User">
+                                {if(isset($users) && count($users)>0)}
+                                    {foreach $row in $users}
+                                        <option value="{echo $row['id']}">{echo $row['first_name']} {echo $row['last_name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Sponsors</label>
+                            <select id="sponsors" name="sponsor-id" class="bs-select form-control" placeholder="Select Sponsor">
+                                {if(isset($sponsors) && count($sponsors)>0)}
+                                    {foreach $row in $sponsors}
+                                        <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label full-width">Not Authorized Offers <a class="pull-right tooltips select-options" data-from="available-offers" data-target="selected-offers" data-container="body" data-placement="top" data-original-title="Move selected offers in authorisation selection" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-arrow-right"></i></a> <a class="pull-right tooltips deselect-all-options" data-target="available-offers" data-container="body" data-placement="top" data-original-title="Deselect all options" href="javascript:;" data-target="available-ips" style="margin-left: 15px;"><i class="fa fa-ban"></i></a> <a class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all Options" href="javascript:;" data-target="available-offers" style="margin-left: 15px;"><i class="fa fa-list"></i></a></label>
+                            <select id="available-offers" class="form-control" multiple="multiple" style="height: 172px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label full-width">Authorized Offers <a class="pull-right tooltips deselect-options" data-from="selected-offers" data-target="available-offers" data-container="body" data-placement="top" data-original-title="Move selected offers out of authorisation selection" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-arrow-left"></i></a> <a class="pull-right tooltips deselect-all-options" data-target="selected-offers" data-container="body" data-placement="top" data-original-title="Deselect all options" href="javascript:;" data-target="selected-ips" style="margin-left: 15px;"><i class="fa fa-ban"></i></a> <a class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all Options"  href="javascript:;" class="select-all-options" data-target="selected-offers" style="margin-left: 15px;"><i class="fa fa-list"></i></a></label>
+                            <select id="selected-offers" class="form-control" multiple="multiple" style="height: 172px;"> 
+                            </select>
+                            <input id="authorized-offers" type="hidden" name="authorized" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading pull-left"><i class="fa fa-check"></i> Save</button>
+            </div>
+        </form>
+    </div>
+</div>

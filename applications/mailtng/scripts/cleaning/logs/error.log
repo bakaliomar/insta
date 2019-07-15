@@ -1,0 +1,193 @@
+2017-08-15 19:24:40 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: No Job Defined !
+	at com.mailtng.jobs.main.Main.main(Main.java:20)
+2017-08-19 12:39:42 --ERROR-ApplicationErrorMessage : 
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "kyr"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:451)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:223)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:212)
+	at org.postgresql.Driver.makeConnection(Driver.java:407)
+	at org.postgresql.Driver.connect(Driver.java:275)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.mailtng.jobs.database.ConnectionManager.<init>(ConnectionManager.java:45)
+	at com.mailtng.jobs.workers.Suppression.<init>(Suppression.java:44)
+	at com.mailtng.jobs.main.Main.main(Main.java:29)
+2017-08-19 12:41:17 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at com.mailtng.jobs.database.ConnectionManager.prepareStatement(ConnectionManager.java:116)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:127)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 12:44:46 --ERROR-ApplicationErrorMessage : 
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "kyr"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:451)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:223)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:212)
+	at org.postgresql.Driver.makeConnection(Driver.java:407)
+	at org.postgresql.Driver.connect(Driver.java:275)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.mailtng.jobs.database.ConnectionManager.<init>(ConnectionManager.java:45)
+	at com.mailtng.jobs.workers.Suppression.<init>(Suppression.java:44)
+	at com.mailtng.jobs.main.Main.main(Main.java:29)
+2017-08-19 12:44:56 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at com.mailtng.jobs.database.ConnectionManager.prepareStatement(ConnectionManager.java:116)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:127)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 13:02:48 --ERROR-ApplicationErrorMessage : 
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "kyr"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:451)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:223)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:212)
+	at org.postgresql.Driver.makeConnection(Driver.java:407)
+	at org.postgresql.Driver.connect(Driver.java:275)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.mailtng.jobs.database.ConnectionManager.<init>(ConnectionManager.java:45)
+	at com.mailtng.jobs.workers.Suppression.<init>(Suppression.java:44)
+	at com.mailtng.jobs.main.Main.main(Main.java:29)
+2017-08-19 13:03:15 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at com.mailtng.jobs.database.ConnectionManager.prepareStatement(ConnectionManager.java:116)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:127)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 13:06:46 --ERROR-ApplicationErrorMessage : 
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "kyr"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:451)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:223)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:212)
+	at org.postgresql.Driver.makeConnection(Driver.java:407)
+	at org.postgresql.Driver.connect(Driver.java:275)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.mailtng.jobs.database.ConnectionManager.<init>(ConnectionManager.java:45)
+	at com.mailtng.jobs.workers.Suppression.<init>(Suppression.java:44)
+	at com.mailtng.jobs.main.Main.main(Main.java:29)
+2017-08-19 13:06:46 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 13:28:22 --ERROR-ApplicationErrorMessage : 
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "kyr"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:451)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:223)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:212)
+	at org.postgresql.Driver.makeConnection(Driver.java:407)
+	at org.postgresql.Driver.connect(Driver.java:275)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.mailtng.jobs.database.ConnectionManager.<init>(ConnectionManager.java:45)
+	at com.mailtng.jobs.workers.Suppression.<init>(Suppression.java:44)
+	at com.mailtng.jobs.main.Main.main(Main.java:29)
+2017-08-19 13:28:51 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at com.mailtng.jobs.database.ConnectionManager.prepareStatement(ConnectionManager.java:116)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:127)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 15:17:13 --ERROR-ApplicationErrorMessage : 
+java.lang.ClassCastException: [C cannot be cast to java.lang.Comparable
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:249)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:122)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 23:36:00 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 23:38:27 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 23:41:14 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-19 23:41:42 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-08-23 14:54:21 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-02 23:29:53 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:45)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-02 23:34:30 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-04 02:32:17 --ERROR-ApplicationErrorMessage : 
+java.lang.Exception: Unsupported File Type !
+	at com.mailtng.jobs.helpers.Downloader.downloadFile(Downloader.java:32)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:85)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-05 17:06:08 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-05 17:11:29 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-05 17:13:50 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)
+2017-09-05 17:18:42 --ERROR-ApplicationErrorMessage : 
+java.lang.NullPointerException
+	at java.util.ComparableTimSort.binarySort(ComparableTimSort.java:262)
+	at java.util.ComparableTimSort.sort(ComparableTimSort.java:207)
+	at java.util.Arrays.sort(Arrays.java:1312)
+	at java.util.Arrays.sort(Arrays.java:1506)
+	at java.util.ArrayList.sort(ArrayList.java:1454)
+	at java.util.Collections.sort(Collections.java:141)
+	at com.mailtng.jobs.workers.Suppression.procceedSuppression(Suppression.java:152)
+	at com.mailtng.jobs.main.Main.main(Main.java:30)

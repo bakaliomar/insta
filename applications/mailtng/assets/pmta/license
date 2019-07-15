@@ -1,0 +1,13 @@
+product: PowerMTA
+version: 4.0
+platform: linux-intel
+units: 0
+options: H
+licensee: Elysium3
+serial: Elysium3-5-316904
+comment: LAK 1
+issued: 2011-07-20
+expires: never
+copyright: Port25 Solutions, Inc.  All Rights Reserved
+check: 1-NgDoD2OxSu3td4THlaiwLjNZtvPFW+jpXZRyDj4EwtDAeL2h
+       HPDsUj7IPT2w8CWDc87w8SgW+ZrZPufkCIcLuQ==

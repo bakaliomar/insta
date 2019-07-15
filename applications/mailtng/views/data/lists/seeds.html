@@ -1,0 +1,51 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage Seeds Data</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/data/lists/seeds.html" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">ISP</label>
+                            <select id="seeds-isp" class="form-control bs-select" name="isp-id" title="Select an ISP ...">
+                                {if(isset($isps) && count($isps)>0)}
+                                    {foreach $row in $isps}
+                                        <option value="{echo $row['id']}" {if($row['id'] == 1)} selected="selected" {/if}>{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Seeds Lists</label>
+                            <select id="lists" class="form-control seeds-lists bs-select" title="Select a Data List ..." name="data-list">
+                            </select>
+                            <span class="help-block" id="data-count-help">Data Count : 0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Emails List</label>
+                            <textarea id="emails" class="form-control" style="height: 300px;" name="emails" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-eraser"></i> Save</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

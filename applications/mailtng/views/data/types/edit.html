@@ -1,0 +1,41 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage Type : {echo $type['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/data/types/save.html" class="horizontal-form validated-form" method="POST">
+            <div class="form-body">
+                <input type="hidden" name="type-id"value="{echo $type['id']}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Provider Name</label>
+                            <input type="text" name="type" class="form-control" placeholder="Enter Type Name" value="{echo $type['name']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option {if($row['id'] == $type['status_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Save Changes</button>
+                <a title="" href="{echo $app['app_url']}/data/types/delete/{echo $type['id']}.html" class="btn btn-danger confirmation-button" ><i class="fa fa-remove"></i> Delete Record</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

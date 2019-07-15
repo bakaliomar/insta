@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>Login To {echo $app['name']}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="lux mall application" name="description" />
+        <meta content="" name="author" />
+        
+        <!-- BEGIN LAYOUT FIRST STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Pacifico:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
+        <!-- END LAYOUT FIRST STYLES -->
+        
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        {include includes/core_styles.html}
+        <!-- END GLOBAL MANDATORY STYLES -->
+        
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        {include $__page/includes/styles.html}
+        <!-- END PAGE LEVEL STYLES -->
+        
+        <link rel="shortcut icon" href="{echo $app['skin_url']}/images/logos/favicon.ico?v=2" type="image/png"/> 
+    </head>
+    <!-- END HEAD -->
+    <body class=" login">
+        <!-- BEGIN PRE-LOADER -->
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+        <!-- END PRE-LOADER -->
+        <!-- BEGIN : LOGIN PAGE 5-1 -->
+        <div class="user-login-5">
+            <div class="row bs-reset">
+                <div class="col-md-6 bs-reset">
+                    <div class="login-bg"></div>
+                </div>
+                <div class="col-md-6 login-container bs-reset">
+                    <div class="login-content">
+                        <h1>{echo $app['company_name']}</h1>
+                        <p> Login To Our Mailing Application </p>
+                        <form action="{echo $app['app_url']}/authentication/login/authenticate.html" class="login-form" method="post">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" required/> </div>
+                                <div class="col-xs-6">
+                                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" required/> </div>
+                            </div>
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button>
+                                <span>Enter any username and password. </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="rem-password">
+                                        <p>Remember Me
+                                            <input type="checkbox" class="rem-checkbox" name="remember-me"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <button class="btn blue-dark submit-loading" type="submit">Sign In</button>
+                                </div>
+                            </div>
+                            {if(isset($login_error_message))}
+                                <div style="display: block;" class="alert alert-danger">
+                                    <button class="close" data-close="alert"></button>
+                                    <span>{echo $login_error_message}</span>
+                                </div>
+                            {/if}
+                        </form>
+                    </div>
+                    <div class="login-footer">
+                        <div class="row bs-reset">
+                            <div class="col-xs-4 bs-reset">
+                                <ul class="login-social">
+                                </ul>
+                            </div>
+                            <div class="col-xs-8 bs-reset">
+                                <div class="login-copyright text-right">
+                                    <p>2016 &copy; {echo $app['company_name']}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END COPYRIGHT -->
+        <!-- BEGIN JAVASCRIPTS -->
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_plugins.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            {include $__page/includes/plugins.html}
+            <!-- END PAGE LEVEL PLUGINS -->
+
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_scripts.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            {include $__page/includes/scripts.html}
+            <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- END JAVASCRIPTS -->
+    </body>
+</html>

@@ -1,0 +1,251 @@
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+            <div class="visual">
+                <i class="fa fa-cloud"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="{echo $serversCount}">0</span>
+                </div>
+                <div class="desc"> Servers </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 blue-dark" href="#">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="{echo $ipsCount}">0</span>
+                </div>
+                <div class="desc"> IPs </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 green-dark" href="#">
+            <div class="visual">
+                <i class="fa fa-dollar"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="earnings" data-counter="counterup" data-value="0">0</span>
+                </div>
+                <div class="desc"> Earnings </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="{echo $emailsCount}">0</span>
+                </div>
+                <div class="desc"> Sent </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="{echo $deliveryCount}">0</span>
+                </div>
+                <div class="desc"> Delivered </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+            <div class="visual">
+                <i class="fa fa-ban"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="{echo $bounceCount}">0</span>
+                </div>
+                <div class="desc"> Bounce </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-list font-blue-dark"></i>
+                    <span class="caption-subject font-blue-dark uppercase">Servers Monitoring</span>
+                </div>
+                <div class="actions">
+                    <button type="button" id="show-server-monitoring" class="btn green-blue-dark"><i class="fa fa-desktop"></i> Update Monitoring</button>
+                </div>
+            </div>
+            <div class="portlet-body" id="monitor-portlet-body" >
+                <div class="table-container">
+                    <table class="table table-striped table-bordered table-hover data-list" id="servers-list" order="asc" page="5" callbackMethod="Home.handleMonitoringDomainsDetails">
+                        <thead>
+                            <tr>
+                                {if(isset($columns) && count($columns)>0)}
+                                    {foreach $column in $columns}
+                                    <th style="width: 100px;">{echo ucfirst(str_replace('_',' ',strtolower($column)))}</th>
+                                    {/foreach}
+                                {/if}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="body-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Domains Status</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p></p>
+                        </div>
+                        <div class="modal-footer">
+                            <a data-dismiss="modal" class="btn green" href="javascript:;">Close</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-list font-blue-dark"></i>
+                    <span class="caption-subject font-blue-dark uppercase">In Progress Drops</span>
+                </div>
+            </div>
+            <div class="portlet-body" id="monitor-portlet-body" >
+                <div class="table-container">
+                    <table class="table table-striped table-bordered table-hover data-list" id="drops-list" order="asc" page="5">
+                        <thead>
+                            <tr>
+                                {if(isset($dropsColumns) && count($dropsColumns)>0)}
+                                    {foreach $dropsColumn in $dropsColumns}
+                                        <th>{echo ucfirst(str_replace('_',' ',strtolower($dropsColumn)))}</th>
+                                    {/foreach}
+                                {/if}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {if(isset($drops) && count($drops)>0)}
+                                {foreach $row in $drops}
+                                    <tr>
+                                        {if(isset($dropsColumns) && count($dropsColumns)>0)}
+                                            {foreach $column in $dropsColumns}
+                                                <td>
+                                                    {if($row[$column] != null && $row[$column] != '')}
+                                                        {echo $row[$column]}
+                                                    {/if}
+                                                    {else}
+                                                        {echo '<center>-</center>'}
+                                                    {/else}
+                                                </td>
+                                            {/foreach}
+                                        {/if}
+                                    </tr>
+                                {/foreach}    
+                            {/if} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart font-blue"></i>
+                    <span class="caption-subject font-blue uppercase">Daily Sent Report For <span class="bold">{echo date('F')}</span></span>
+                    <span class="caption-helper">Sent / Delivered / Bounced Statistics...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="daily-sent-report-loading"><img src="{echo $app['skin_url']}/images/icons/loading.gif" alt="loading" /></div>
+                <div id="daily-sent-report-content" class="display-none">
+                    <div id="daily-sent-report" class="chart"></div>   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart font-red"></i>
+                    <span class="caption-subject font-red uppercase">Daily Actions Report For <span class="bold">{echo date('F')}</span></span>
+                    <span class="caption-helper">Opens / Clicks / Leads / Unsubscribers Statistics...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="daily-actions-report-loading"><img src="{echo $app['skin_url']}/images/icons/loading.gif" alt="loading" /></div>
+                <div id="daily-actions-report-content" class="display-none">
+                    <div id="daily-actions-report" class="chart"></div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart font-blue"></i>
+                    <span class="caption-subject font-blue uppercase">Monthly Sent Report For <span class="bold">{echo date('Y')}</span></span>
+                    <span class="caption-helper">Sent / Delivered / Bounced Statistics...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="monthly-sent-report-loading"><img src="{echo $app['skin_url']}/images/icons/loading.gif" alt="loading" /></div>
+                <div id="monthly-sent-report-content" class="display-none">
+                    <div id="monthly-sent-report" class="chart"></div>   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart font-red"></i>
+                    <span class="caption-subject font-red uppercase">Monthly Actions Report For <span class="bold">{echo date('Y')}</span></span>
+                    <span class="caption-helper">Opens / Clicks / Leads / Unsubscribers Statistics...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="monthly-actions-report-loading"><img src="{echo $app['skin_url']}/images/icons/loading.gif" alt="loading" /></div>
+                <div id="monthly-actions-report-content" class="display-none">
+                    <div id="monthly-actions-report" class="chart"></div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

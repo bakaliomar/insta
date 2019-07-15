@@ -1,0 +1,41 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-soft"></i>
+            <span class="caption-subject font-blue-soft uppercase">Add New Offer Or Update Existing One</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/offers/upload.html" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Sponsor</label>
+                            <select class="form-control bs-select" title="Select a Sponsor ..." name="sponsor-id">
+                                {if(isset($sponsors) && count($sponsors) > 0)}
+                                    {foreach $sponsor in $sponsors}
+                                        <option value="{echo $sponsor['id']}" {if($sponsor_i == 0)} selected="true" {/if} >{echo $sponsor['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Offer Production Ids</label>
+                            <textarea name="production-ids" rows="15" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-soft submit-loading"><i class="fa fa-check"></i> Add</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

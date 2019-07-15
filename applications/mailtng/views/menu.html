@@ -1,0 +1,282 @@
+<div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+            {if(isset($connectedUser) && in_array($connectedUser['application_role_id'],[1]))}
+                <li class="nav-item start {if(isset($menu_home))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/home.html"><i class="icon-home"></i> Dashboard</a>
+                </li>
+
+                <li class="heading">
+                    <h3 class="uppercase">Administration</h3>
+                </li>
+                    <li class="nav-item {if(isset($menu_admin_servers_management))}{echo 'active open'}{/if}">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-cloud-upload"></i>
+                            <span class="title">Servers Management</span>
+                            <span class="arrow {if(isset($menu_admin_servers_types))}{echo 'open'}{/if}"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item {if(isset($menu_admin_server_providers))}{echo 'active open'}{/if}">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-globe"></i>
+                                    <span class="title">Servers Providers</span>
+                                    <span class="arrow {if(isset($menu_admin_server_providers))}{echo 'open'}{/if}"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item {if(isset($menu_admin_server_providers_add))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/servers/providers/add.html" class="nav-link"><i class="icon-plus"></i> Add New Provider </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_server_providers_list))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/servers/providers/lists.html" class="nav-link"><i class="icon-list"></i> Show Providers List </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item {if(isset($menu_admin_servers))}{echo 'active open'}{/if}">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-cloud-upload"></i>
+                                    <span class="title">Servers</span>
+                                    <span class="arrow {if(isset($menu_admin_servers))}{echo 'open'}{/if}"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item {if(isset($menu_admin_servers_add))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/servers/add.html" class="nav-link"><i class="icon-plus"></i> Add New Servers </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_servers_list))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/servers/lists.html" class="nav-link"><i class="icon-list"></i> Show Servers List </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item {if(isset($menu_admin_domains))}{echo 'active open'}{/if}">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-cloud-upload"></i>
+                                    <span class="title">Domains</span>
+                                    <span class="arrow {if(isset($menu_admin_domains))}{echo 'open'}{/if} "></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item {if(isset($menu_admin_domains_add))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/domains/add.html" class="nav-link"><i class="icon-plus"></i> Add New Domains </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_domains_lists))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/domains/lists.html" class="nav-link"><i class="icon-list"></i> Show Domains List </a>
+                                    </li>
+                                </ul>
+                            </li> 
+                        </ul>
+                    </li>
+                    <li class="nav-item {if(isset($menu_admin_users_management))}{echo 'active open'}{/if}">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-users"></i>
+                            <span class="title">Users & Accessibilities</span>
+                            <span class="arrow {if(isset($menu_admin_users_management))}{echo 'open'}{/if} "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item {if(isset($menu_admin_users))}{echo 'active open'}{/if}">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Users</span>
+                                    <span class="arrow {if(isset($menu_admin_users))}{echo 'open'}{/if}"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item {if(isset($menu_admin_users_add))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/users/add.html" class="nav-link"><i class="icon-plus"></i> Add New Users </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_users_list))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/users/lists.html" class="nav-link"><i class="icon-list"></i> Show Users List </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item {if(isset($menu_admin_accessibilities))}{echo 'active open'}{/if}">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-key"></i>
+                                    <span class="title">Accessibilities</span>
+                                    <span class="arrow {if(isset($menu_admin_accessibilities))}{echo 'open'}{/if}"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item {if(isset($menu_admin_accessibilities_servers))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/accessibilities/servers.html" class="nav-link"><i class="icon-cloud-upload"></i> Servers Accessibilities </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_accessibilities_isps))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/accessibilities/isps.html" class="nav-link"><i class="icon-envelope-open"></i> ISPs Accessibilities </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_accessibilities_offers))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/accessibilities/offers.html" class="nav-link"><i class="icon-globe"></i> Offers Accessibilities </a>
+                                    </li>
+                                    <li class="nav-item {if(isset($menu_admin_accessibilities_lists))}{echo 'active'}{/if}">
+                                        <a href="{echo $app['app_url']}/accessibilities/lists.html" class="nav-link"><i class="icon-list"></i> Email Lists Accessibilities </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li> 
+                <li class="nav-item {if(isset($menu_admin_mailing_manage))}{echo 'active open'}{/if}">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-puzzle"></i>
+                        <span class="title">Mailing Management</span>
+                        <span class="arrow {if(isset($menu_admin_mailing_manage))}{echo 'open'}{/if} "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item {if(isset($menu_admin_sponsors))}{echo 'active open'}{/if}">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-briefcase"></i>
+                                <span class="title">Sponsors</span>
+                                <span class="arrow {if(isset($menu_admin_sponsors))}{echo 'open'}{/if} "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item {if(isset($menu_admin_sponsors_add))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/sponsors/add.html" class="nav-link"><i class="icon-plus"></i> Add New Sponsors </a>
+                                </li>
+                                <li class="nav-item {if(isset($menu_admin_sponsors_lists))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/sponsors/lists.html" class="nav-link"><i class="icon-list"></i> Show Sponsors List </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_verticals))}{echo 'active open'}{/if}">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-basket"></i>
+                                <span class="title">Verticals</span>
+                                <span class="arrow {if(isset($menu_admin_verticals))}{echo 'open'}{/if} "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item {if(isset($menu_admin_verticals_add))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/verticals/add.html" class="nav-link"><i class="icon-plus"></i> Add New Verticals </a>
+                                </li>
+                                <li class="nav-item {if(isset($menu_admin_verticals_lists))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/verticals/lists.html" class="nav-link"><i class="icon-list"></i> Show Verticals List </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_offers))}{echo 'active open'}{/if}">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-notebook"></i>
+                                <span class="title">Offers</span>
+                                <span class="arrow {if(isset($menu_admin_offers))}{echo 'open'}{/if} "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item {if(isset($menu_admin_offers_add))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/offers/add.html" class="nav-link"><i class="icon-plus"></i> Add New Offers </a>
+                                </li>
+                                <li class="nav-item {if(isset($menu_admin_offers_lists))}{echo 'active'}{/if}">
+                                    <a href="{echo $app['app_url']}/offers/lists.html" class="nav-link"><i class="icon-list"></i> Show Offers List </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">Data Management</h3>
+                </li>
+                <li class="nav-item {if(isset($menu_admin_isps))}{echo 'active open'}{/if}">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-envelope-open"></i>
+                        <span class="title">ISPs</span>
+                        <span class="arrow {if(isset($menu_admin_isps))}{echo 'open'}{/if} "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item {if(isset($menu_admin_isps_add))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/isps/add.html" class="nav-link"><i class="icon-plus"></i> Add New ISPs </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_isps_lists))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/isps/lists.html" class="nav-link"><i class="icon-list"></i> Show ISPs List </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item {if(isset($menu_admin_data_lists))}{echo 'active open'}{/if}">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-envelope-open"></i>
+                        <span class="title">Data Lists</span>
+                        <span class="arrow {if(isset($menu_admin_data_lists))}{echo 'open'}{/if}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                            <li class="nav-item {if(isset($menu_admin_data_lists_add))}{echo 'active'}{/if}">
+                                <a href="{echo $app['app_url']}/data/lists/add.html" class="nav-link"><i class="icon-plus"></i> Add Emails List </a>
+                            </li>
+                        <li class="nav-item {if(isset($menu_admin_data_lists_all))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/data/lists/all.html" class="nav-link"><i class="icon-list"></i> Show Data Lists </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_data_lists_seeds))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/data/lists/seeds.html" class="nav-link"><i class="icon-docs"></i> Manage Seeds Lists </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_data_lists_clean))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/data/lists/clean.html" class="nav-link"><i class="icon-trash"></i> Clean Bounce Emails </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_data_lists_dwonload))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/data/lists/download.html" class="nav-link"><i class="icon-cloud-download"></i> Download Lists </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_admin_data_lists_suppression))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/data/lists/suppression.html" class="nav-link"><i class="icon-ban"></i> Add Suppression File </a>
+                        </li>
+                    </ul> 
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">Negative</h3>
+                </li>
+                <li class="nav-item {if(isset($menu_production_negative_words))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/negative/words.html" class="nav-link"><i class="icon-check"></i> Get Good Words</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_negative_retreive))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/negative/retreive.html" class="nav-link"><i class="icon-envelope"></i> Retreive Negative</a>
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">Tools</h3>
+                </li>
+                <li class="nav-item {if(isset($menu_production_tools_zone))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/tools/tzones.html" class="nav-link"><i class="icon-calendar"></i> Change Time Zones</a>
+                </li>
+            {/if}
+            {if(isset($connectedUser) && in_array($connectedUser['application_role_id'],[1,2]))}
+                <li class="heading">
+                    <h3 class="uppercase">Production</h3>
+                </li>
+                <li class="nav-item {if(isset($menu_production_drops))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/drops/lists.html" class="nav-link"><i class="icon-list"></i> Drops Monitoring </a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_mail))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/mail.html" class="nav-link"><i class="icon-envelope-open"></i> Send Page </a>
+                </li>
+                <li class="nav-item start {if(isset($menu_production_images))}{echo 'active'}{/if}">
+                    <a target="_blank" href="{echo $app['app_url']}/images.html"><i class="icon-picture"></i>Upload Images</a>
+                </li>
+                <li class="nav-item start {if(isset($menu_production_pmta))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/pmta/manage.html"><i class="icon-trash"></i>Manage PMTA</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_mail_headers))}{echo 'active open'}{/if}">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-note"></i>
+                        <span class="title">Predefined Headers</span>
+                        <span class="arrow {if(isset($menu_production_mail_headers))}{echo 'open'}{/if}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item {if(isset($menu_production_mail_headers_add))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/mail/headers/add.html" class="nav-link"><i class="icon-plus"></i> Add Header </a>
+                        </li>
+                        <li class="nav-item {if(isset($menu_production_mail_headers_list))}{echo 'active'}{/if}">
+                            <a href="{echo $app['app_url']}/mail/headers/lists.html" class="nav-link"><i class="icon-list"></i> Show Headers </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">Statistics</h3>
+                </li>
+                <li class="nav-item {if(isset($menu_production_opens_stats))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/stats/opens.html" class="nav-link"><i class="icon-eye"></i> Opens Statistics</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_clicks_stats))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/stats/clicks.html" class="nav-link"><i class="icon-like"></i> Clicks Statistics</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_unsubs_stats))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/stats/unsubs.html" class="nav-link"><i class="icon-dislike"></i> Unsubs Statistics</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_leads_stats))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/stats/leads.html" class="nav-link"><i class="icon-tag"></i> Leads Statistics</a>
+                </li>
+                <li class="nav-item {if(isset($menu_production_ips_stats))}{echo 'active'}{/if}">
+                    <a href="{echo $app['app_url']}/stats/ips.html" class="nav-link"><i class="icon-pie-chart"></i> IPs Statistics</a>
+                </li>
+            {/if}
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+</div>

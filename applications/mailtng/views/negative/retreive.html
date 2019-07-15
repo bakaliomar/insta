@@ -1,0 +1,70 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Retreive Emails From Mailboxes</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form id="retrieve-form" class="form-horizontal" role="form" method="POST" action="{echo $app['app_url']}/negative/retreive.html">
+            <div class="form-group">
+                <label class="col-md-1 control-label">Email</label>
+                <div class="col-md-4">
+                    <div class="input-icon">
+                        <i class="fa fa-envelope"></i>
+                        <input type="email" name="email" class="form-control" placeholder="Email"> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 control-label">Password</label>
+                <div class="col-md-4">
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input type="password" name="password" class="form-control" placeholder="Password"> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 control-label">Folder</label>
+                <div class="col-md-4">
+                    <select class="form-control bs-select" name="folder" title="Select Folder ...">                       
+                        <option value="inbox" selected>Inbox</option>
+                        <option value="spam">Spam</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 control-label">Subject Filter</label>
+                <div class="col-md-4">
+                    <input type="text" name="subject" class="form-control" placeholder="Subject Filter"> 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 control-label">From Name Filter</label>
+                <div class="col-md-4">
+                    <input type="text" name="from-name" class="form-control" placeholder="From Name Filter"> 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 control-label">Header Filter</label>
+                <div class="col-md-4">
+                    <textarea name="header" rows="10" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="margin-left: 534px;">
+                    <button id="retrieve-form-button" type="submit" class="btn green"><i class="fa fa-envelope"></i> Get Negative</button>
+                </div>
+            </div>
+            <div id="results" class="form-group">
+                <label class="col-md-1 control-label">Results</label>
+                <div class="col-md-10">
+                    <textarea id="results-textarea" rows="40" class="form-control" readonly="true">{echo $result}</textarea>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

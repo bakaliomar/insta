@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>{if($code == 403)} {echo '403 - Access Denied !'} {/if} {else} {if($code == 404)} {echo '404 - Page Not Found !'} {/if} {else} Internal Error {/else} {/else}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        {include includes/core_styles.html}
+        <!-- END GLOBAL MANDATORY STYLES -->
+        
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        {include $__page/includes/styles.html}
+        <!-- END PAGE LEVEL STYLES -->
+        
+        <link rel="shortcut icon" href="{echo $app['skin_url']}/images/logos/favicon.ico?v=2" type="image/png"/> 
+    </head>
+    <!-- END HEAD -->
+
+    <body class=" page-500-full-page">
+        <!-- BEGIN : ERROR -->
+            <div class="row">
+               <div class="col-md-12 page-500">
+                   <div class=" number font-blue-dark"> {echo $code} </div>
+                   <div class=" details">
+                       <h3>{if($code == 403)} {echo 'Access Denied!'} {/if} {if($code == 404)} {echo 'Page Not Found!'} {/if} {if($code >= 500)} Oops! Something Went Wrong ! {/if}</h3>
+                       <p>{if($code >= 500)} We are fixing it! Please come back in a while. {/if} 
+                       {if($code >= 500)} <br/> {/if}
+                       </p>
+                       <p><a href="{echo $app['app_url']}/home.html" class="btn blue btn-outline"> Return home </a><br> </p>
+                   </div>
+               </div>
+           </div>  
+        <!-- BEGIN JAVASCRIPTS -->
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_plugins.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            {include $__page/includes/plugins.html}
+            <!-- END PAGE LEVEL PLUGINS -->
+
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_scripts.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            {include $__page/includes/scripts.html}
+            <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- END JAVASCRIPTS -->
+    </body>
+</html>

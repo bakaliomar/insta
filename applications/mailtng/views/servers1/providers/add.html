@@ -1,0 +1,64 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Add New Server Provider</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/servers/providers/save.html" class="horizontal-form validate" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Provider Name</label>
+                            <input type="text" name="provider-name" class="form-control" placeholder="Enter Provider Name" data-required="true" data-validation-message="Provider Name is Required !">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id" data-required="true" data-validation-message="Provider Status is Required !">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option value="{echo $row['id']}" {if(strtolower($row['name']) == 'activated')} selected {/if}>{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Provider Website</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                <input type="url" name="provider-website" class="form-control" placeholder="Enter Provider Website">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input type="text" name="provider-username" class="form-control" placeholder="Enter Username">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="password" name="provider-password" class="form-control" placeholder="Enter Password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Save</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

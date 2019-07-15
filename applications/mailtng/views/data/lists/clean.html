@@ -1,0 +1,125 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Clean Bounce Emails</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/data/lists/clean.html" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Server</label>
+                            <select id="servers" class="form-control bs-select" name="server" title="Select a Server ...">
+                                {if(isset($servers) && count($servers)>0)}
+                                    {foreach $row in $servers}                         
+                                        <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">ISP</label>
+                            <select id="isp" class="form-control bs-select" name="isp-id" title="Select an ISP ...">
+                                {if(isset($isps) && count($isps)>0)}
+                                    {foreach $row in $isps}
+                                        <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Data Flag</label>
+                            <select id="data-flag" class="form-control bs-select" name="data-flag" title="Select a Flag ...">
+                                <option value="us" selected="true">US</option>
+                                <option value="uk">UK</option>
+                                <option value="eu">EU</option>
+                                <option value="ca">CA</option>
+                                <option value="ot">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Data List</label>
+                            <select id="lists" class="form-control bs-select" name="data-list" title="Select a List ...">
+                            </select>
+                            <span class="help-block" id="data-count-help">Data Count : 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-eraser"></i> Clean</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-list font-blue-dark"></i>
+                    <span class="caption-subject font-blue-dark  uppercase">Proccesses List</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                            <i class="fa fa-share"></i>
+                            <span class="hidden-xs"> Tools </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right" id="data-list-tools">
+                            <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                            <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                            <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                            <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                            <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container">
+                    <table class="table table-striped table-bordered table-hover data-list" id="proccesses-list">
+                        <thead>
+                            <tr>
+                                {if(isset($columns) && count($columns)>0)}
+                                    {foreach $column in $columns}
+                                        <th>{echo ucfirst(str_replace('_',' ',strtolower($column)))}</th>
+                                    {/foreach}
+                                    <th class="table-button-th"></th>
+                                {/if}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {if(isset($list) && count($list)>0)}
+                                {foreach $row in $list}
+                                    <tr>
+                                        {foreach $row_data in $row}
+                                            <td {if($row_data_i == 'progress')}{echo 'id="proccess-progress-' . $row['id'] . '"'}{/if} {if($row_data_i == 'hard_bounce_emails')}{echo 'id="proccess-emails-' . $row['id'] . '"'}{/if} >{echo $row_data}</td>
+                                        {/foreach}
+                                        <td style="text-align: center;width: 25px;"><a title="Update Progress" {if($row['status'] == 'in progress')} class="update-bounce-progress" data-proccess-id="{echo $row['id']}" {/if}{else} style="color:gray;text-decoration:none;cursor:default" {/else} ><i class="fa fa-spinner"></i></a></a></td>
+                                    </tr>
+                                {/foreach}    
+                            {/if} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>

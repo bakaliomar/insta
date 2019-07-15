@@ -1,0 +1,659 @@
+<div class="row">
+    <div class="col-md-12"> 
+        <form id="mail-form" action="{echo $app['app_url']}/mail/send.html" class="horizontal-form" method="POST" target="form" enctype="multipart/form-data"> 
+            <div id="draggable-container" class="row ui-sortable">
+                <div class="col-md-12 column sortable"> 
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Servers/IPs Section</span>
+                            </div>
+                            <div class="tools">
+                                <div class="btn-group">
+                                    <a href="javascript:;" aria-expanded="false" class="btn grey dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i> Help <i class="fa fa-angle-down"></i></a>
+                                    <ul id="help" class="dropdown-menu">
+                                        <li><a id="show-placeholders-help" href="#modal-dialog" role="button" data-toggle="modal"> PlaceHolders Help</a><input id="place-holders-help-html" value="{echo base64_encode($help)}" type="hidden"></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" aria-expanded="false" class="btn blue-dark dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o"></i> Drops Monitors <i class="fa fa-angle-down"></i></a>
+                                    <ul id="drops-links" class="dropdown-menu">
+                                        <li><a href="javascript:;"> No Servers Selected</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" aria-expanded="false" class="btn red dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> PMTA Monitors <i class="fa fa-angle-down"></i></a>
+                                    <ul id="pmta-links" class="dropdown-menu">
+                                        <li><a href="javascript:;"> No Servers Selected</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group"> 
+                                        <label class="control-label full-width">
+                                            Servers <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Refresh Servers" href="javascript:;" id="refresh-servers" style="margin-left: 15px;"><i class="fa fa-refresh"></i></a>
+                                        </label>
+                                        <select onclick="adjustSize()" id="servers" name="servers[]" class="bs-select form-control" multiple data-actions-box="true" data-live-search="true" placeholder="Select Servers">
+                                            {if(isset($servers) && count($servers)>0)}
+                                                {foreach $row in $servers}
+                                                    <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                                {/foreach}
+                                            {/if}
+                                        </select>
+                                        <input type="hidden" id="pmta-port" value="{echo $pmtaPort}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">Available IPs <span id="available-ips-sum" style="margin-left: 5px;">(0 IP Selected)</span>
+
+                                        <a id="ips-selector" class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Move selected ips in send selection" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-arrow-right"></i></a>
+
+                                        <a class="pull-right tooltips deselect-all-options" data-container="body" data-placement="top" data-original-title="Deselect all options" href="javascript:;" data-target="available-ips" style="margin-left: 15px;"><i class="fa fa-ban"></i></a>
+
+                                        <a class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all ips" href="javascript:;" data-target="available-ips" style="margin-left: 15px;"><i class="fa fa-list"></i></a>
+
+                                        <a onclick="showBoxSearchAvailable()" class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all ips"  href="javascript:;" class="select-all-options" style="margin-left: 15px;"><i class="fa fa-search"></i></a>
+
+                                        <a onclick="useIPV6Available()" href="javascript:;" class="select-all-options pull-right" style="margin-left: 15px;text-decoration:none;"><b>V6</b></a>
+
+                                        <a onclick="useIPV4Available()" href="javascript:;" class="select-all-options pull-right" style="margin-left: 15px;text-decoration:none;"><b>V4</b></a>
+
+                                        </label>
+                                        <select id="available-ips" class="form-control" multiple="multiple" style="height: 168px;">
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <!-- modal for search in available ips -->
+                                <div id="search-box-available" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel"><b>IP&#39;s Lookup</b></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label"> <b> IP&#39;s SEARCH</b>:</label>
+                                                    <textarea id="my_ip_available" class="form-control" rows="4" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: center;" class="modal-footer">                                            
+                                                <button onclick="unselected_ips_available()" type="button" style="background-color: #ff962f; border-color: #ff962f;" class="btn btn-danger">Unselect</button>
+                                                <button onclick="okSearchAvailable()" type="button" style="background-color: #2ab152; border-color: #2ab152;" class="btn btn-info">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- modal for search in selected ips -->
+                                <div id="search-box" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel"><b>IP&#39;s Lookup</b></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label"> <b> IP&#39;s SEARCH</b>:</label>
+                                                    <textarea id="my_ip" class="form-control" rows="4" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: center;" class="modal-footer">                                            
+                                                <button onclick="unselected_ips()" type="button" style="background-color: #ff962f; border-color: #ff962f;" class="btn btn-danger">Unselect</button>
+                                                <button onclick="okSearch()" type="button" style="background-color: #2ab152; border-color: #2ab152;" class="btn btn-info">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">Selected IPs <span id="selected-ips-sum" style="margin-left: 5px;">(0 IP Selected)</span>
+
+                                        <a id="ips-deselector" class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Move selected ips out of send selection" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-arrow-left"></i></a>
+
+                                        <a class="pull-right tooltips deselect-all-options" data-container="body" data-placement="top" data-original-title="Deselect all options" href="javascript:;" data-target="selected-ips" style="margin-left: 15px;"><i class="fa fa-ban"></i></a>
+
+                                        <a class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all ips"  href="javascript:;" class="select-all-options" data-target="selected-ips" style="margin-left: 15px;"><i class="fa fa-list"></i></a>
+
+                                        <a onclick="showBoxSearch()" class="pull-right tooltips select-all-options" data-container="body" data-placement="top" data-original-title="Select all ips"  href="javascript:;" class="select-all-options" style="margin-left: 15px;"><i class="fa fa-search"></i></a>
+
+                                        <a onclick="useIPV6()" href="javascript:;" class="select-all-options pull-right" style="margin-left: 15px;text-decoration:none;"><b>V6</b></a>
+
+                                        <a onclick="useIPV4()" href="javascript:;" class="select-all-options pull-right" style="margin-left: 15px;text-decoration:none;"><b>V4</b></a>
+
+                                        </label>
+                                        <select id="selected-ips" class="form-control" name="selected-ips[]" multiple="multiple" style="height: 168px;"> 
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Split Emails By</label>
+                                        <select id="emails-split-type" class="form-control bs-select" name="emails-split-type"> 
+                                            <option value="ips" selected="true">IPs</option>
+                                            <option value="servers">Servers</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ips / Emails Proccess Type</label>
+                                        <select id="ips-emails-proccess" class="form-control bs-select" name="ips-emails-proccess"> 
+                                            <option value="ips-rotation" selected="true">Rotation / x-Delay</option>
+                                            <option value="emails-per-period">Emails Per Period</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Emails</label>
+                                        <input id="number-of-emails" type="text" class="form-control" name="number-of-emails" value="1" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Period</label>
+                                        <input id="emails-period-value" type="text" class="form-control" name="emails-period-value" value="1" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Unit</label>
+                                        <select id="emails-period-type" class="form-control bs-select" name="emails-period-type" disabled> 
+                                            <option value="seconds" selected="true">Seconds</option>
+                                            <option value="minutes">Minutes</option>
+                                            <option value="hours">Hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Batch</label>
+                                        <input id="batch" type="text" class="form-control" name="batch" value="100">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Ips Rotation</label>
+                                        <input id="ips-rotation" type="text" class="form-control" name="ips-rotation" value="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">X-Delay(S)</label>
+                                        <input id="x-delay" type="text" class="form-control" name="x-delay" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="header-pane" class="portlet portlet-sortable light bordered" style="padding-bottom: 31px;">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Header Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="control-label full-width">Predefined Headers</label>
+                                    <select id="predefined-headers" class="form-control bs-select" title="Select a Header ...">
+                                        {if(isset($headers) && count($headers)>0)}
+                                            {foreach $row in $headers}                         
+                                                <option value="{echo $row['value']}">{echo $row['name']}</option>
+                                            {/foreach}
+                                        {/if}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Content Type</label>
+                                        <select id="content-type" class="form-control bs-select" name="content-type">
+                                            <option value="text/html">text/html</option>
+                                            <option value="text/plain">text/plain</option>
+                                            <option value="multipart/alternative">multipart/alternative</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Charset</label>
+                                        <select id="charset" class="form-control bs-select" name="charset">
+                                            <option value="UTF-8">UTF-8</option>
+                                            <option value="UTF-8-Base64">UTF-8-Base64</option>
+                                            <option value="UTF-16">UTF-16</option>
+                                            <option value="ISO-8859-1">ISO-8859-1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Content-Transfer-Encoding</label>
+                                        <select id="content-transfer-encoding" class="form-control bs-select" name="content-transfer-encoding">
+                                            <option value="7bit">7bit</option>
+                                            <option value="8bit">8bit</option>
+                                            <option value="quoted-printable">quoted-printable</option>
+                                            <option value="base64">base64</option>
+                                            <option value="binary">binary</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label full-width">Header 
+                                        <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Reset the header" id="upload-button" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-upload"></i></a>
+                                        <input id="upload-headers" type="file" multiple  style="display: none;" />
+                                        <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Reset the header" id="reset-header" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-power-off"></i></a>
+                                    </label>
+                                    <div class="tabbable tabbable-tabdrop">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab1" data-toggle="tab">Header 1</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab1">
+                                                <textarea id="header" class="form-control" style="height: 178px;" name="headers[]" data-widearea="enable" spellcheck="false" wrap="off" data-original-header="">{echo $header}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Test/Auto Reply Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Test Frequency</label>
+                                                <input type="text" class="form-control" name="send-test-after" value="1000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Recipients ( Separated By ; )</label>
+                                                <input type="text" class="form-control" name="recipients-emails" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Auto Reply</label>
+                                                <select id="auto-response" class="form-control bs-select" name="auto-response">
+                                                    <option value="off" selected>Disabled</option>
+                                                    <option value="on">Enabled</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Auto Reply Rotation</label>
+                                                <input id="auto-response-frequency" type="text" class="form-control" name="auto-response-frequency" value="" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Auto Reply Emails ( Separated By Lines )</label>
+                                                <textarea id="auto-response-emails" class="form-control" name="auto-reply-emails" data-widearea="enable" style="height: 115px;" spellcheck="false" wrap="off" disabled></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 column sortable"> 
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-globe font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Sponsors/Offers Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Sponsors</label>
+                                        <select id="sponsors" class="form-control bs-select" name="sponsor" title="Select Sponsors ...">
+                                            {if(isset($sponsors) && count($sponsors)>0)}
+                                                {foreach $sponsor in $sponsors}                         
+                                                    <option value="{echo $sponsor['id']}">{echo $sponsor['name']}</option>
+                                                {/foreach}
+                                            {/if}
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Offers</label>
+                                        <select id="offers" class="form-control bs-select" data-live-search="true" name="offer" title="Select Offers ...">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Creatives</label>
+                                        <select id="creatives" class="form-control bs-select" name="creative" title="Select Creative ...">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">From Names <a class="pull-right tooltips toggle-from-subject" data-container="body" data-target="from-names" data-current-status="select" data-placement="top" data-original-title="Switch FromName" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-edit"></i></a></label>
+                                        <select id="from-names" class="form-control bs-select" data-live-search="true" name="from-name-id" title="Select From Name ...">
+                                        </select>
+                                        <input id="from-names-text" type="text" class="form-control hide" name="from-name-text" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Encoding</label>
+                                        <select class="form-control bs-select encoding" target="from-names"> 
+                                            <option value="plain">Plain Text</option>
+                                            <option value="b64">Base64</option>
+                                            <option value="uni">Unicode</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">Subject <a class="pull-right tooltips toggle-from-subject" data-container="body" data-target="subjects" data-current-status="select" data-placement="top" data-original-title="Switch Subject" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-edit"></i></a></label>
+                                        <select id="subjects" class="form-control bs-select" data-live-search="true" name="subject-id" title="Select Subject ...">
+                                        </select>
+                                        <input id="subjects-text" type="text" class="form-control hide" name="subject-text" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Encoding</label>
+                                        <select class="form-control bs-select encoding" target="subjects"> 
+                                            <option value="plain">Plain Text</option>
+                                            <option value="b64">Base64</option>
+                                            <option value="uni">Unicode</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">From Email</label>
+                                        <input type="text" class="form-control" name="from-email" value="from@[domain]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Return Path</label>
+                                        <input type="text" class="form-control" name="return-path" value="return@[domain]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Reply To</label>
+                                        <input type="text" class="form-control" name="reply-to" value="reply@[domain]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">To</label>
+                                        <input type="text" class="form-control" name="to" value="[email]">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Bounce Email</label>
+                                        <input type="text" class="form-control" name="bounce-email" value="bounce@[domain]">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="control-label">Received</label>
+                                        <input type="text" class="form-control" name="received" value="from [domain] ([ip]) by [domain] id [an12] for <[email]>; [mail_date] (envelope-from <[return_path]>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Body Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">Email Body 
+                                            <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Generate Links" id="generate-links" offer-id="0" href="#modal-dialog" role="button" data-toggle="modal" style="margin-left: 15px;"><i class="fa fa-link"></i></a>
+                                            <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Display Body" id="show-body-as-html" style="margin-left: 15px;"><i class="fa fa-desktop"></i></a>
+                                            <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Upload Negative" id="upload-negative" style="margin-left: 15px;"><i class="fa fa-file-text"></i></a>
+                                            <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Remove Negative" id="negative-remove" style="margin-left: 15px;color: red;display: none;"><i class="fa fa-ban"></i></a>
+                                            <span class="pull-right" id="negative-file-name" style="margin-left: 15px;display: none;"></span>
+                                            <input id="negative-file" type="file" name="negative-file" style="display: none;" />
+                                        </label>
+                                        <textarea id="drop-body" class="form-control" style="height: 455px;" name="body" data-widearea="enable" spellcheck="false" wrap="off"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">PlaceHolders Rotation</label>
+                                                <input type="text" class="form-control" name="placeholders-rotation" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Body PlaceHolders</label>
+                                                <textarea class="form-control" style="height: 384.3px;"  name="body-placeholders" data-widearea="enable" wrap="off"></textarea> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet portlet-sortable light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Emails Filter Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ISP</label>
+                                        <select id="isp" class="form-control bs-select dropup" name="isp-id">
+                                            {if(isset($isps) && count($isps)>0)}
+                                                {foreach $row in $isps}
+                                                    <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                                {/foreach}
+                                            {/if}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Country</label>
+                                        <select id="country" class="form-control bs-select" name="country">
+                                            <option value="us" selected="true">US</option>
+                                            <option value="uk">UK</option>
+                                            <option value="eu">EU</option>
+                                            <option value="ca">CA</option>
+                                            <option value="ot">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Upload Images</label>
+                                        <select id="upload-images" class="form-control bs-select" name="upload-images">
+                                            <option value="on" selected>Enabled</option>
+                                            <option value="off">Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Track Opens</label>
+                                        <select id="track-opens" class="form-control bs-select" name="track-opens">
+                                            <option value="on" >Enabled</option>
+                                            <option value="off" selected>Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Offset</label>
+                                        <input id="data-start" type="text" class="form-control" data-val="0" name="data-start" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Limit</label>
+                                        <input id="data-count" type="text" class="form-control" name="data-count" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Emails/Seed</label>
+                                        <input id="emails-per-seeds" type="text" disabled="disabled" class="form-control" name="emails-per-seed" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-cloud-download font-blue-dark"></i>
+                                <span class="caption-subject font-blue-dark uppercase">Emails Lists Section</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Data List Types</label>
+                                        <div id="data-types" class="data-list-checks scroller" style="height:300px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd"> 
+                                            {if(isset($dataTypes) && count($dataTypes)>0)}
+                                                {foreach $dataType in $dataTypes}               
+                                                    <div class="list-row-checkboxes"><input class="list-type-checkbox" type="checkbox" value="{echo $dataType['id']}" data-type="{echo strtolower(str_replace(' ','_',$dataType['name']))}" /><span class="checkbox-label">{echo $dataType['name']}</span></div>
+                                                {/foreach}
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Data Lists</label>
+                                        <div id="lists" class="data-list-checks scroller" style="height:300px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd"> 
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label full-width">Sub Lists <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Deselect all sub-lists" id="deselect-all-lists" style="margin-left: 15px;"><i class="fa fa-ban"></i></a><a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Select all sub-lists" id="select-all-lists" style="margin-left: 15px;"><i class="fa fa-list"></i></a></label> 
+                                        <div id="sub-lists" class="data-list-checks scroller" style="height:300px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:;" class="close" data-dismiss="modal" aria-hidden="true"></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" class="btn" href="javascript:;">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="quick-nav">
+    <a class="quick-nav-trigger" href="javascript:;">
+        <span aria-hidden="true"></span>
+    </a>
+    <ul>
+        <li>
+            <a href="javascript:;" class="submit-form" send-type="drop">
+                <span>Send Drop</span>
+                <i class="icon-envelope"></i>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" class="submit-form" send-type="test">
+                <span>Test Servers</span>
+                <i class="icon-directions"></i>
+            </a>
+        </li>
+    </ul>
+    <span aria-hidden="true" class="quick-nav-bg"></span>
+</nav>
+<div class="quick-nav-overlay"></div>

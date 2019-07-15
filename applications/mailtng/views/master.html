@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--><html lang="en"><!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>{echo $app['name'] . ' | ' . ucfirst($router['controller'])}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="lux mall application" name="description" /> 
+        <meta content="" name="author" />
+        
+        <!-- BEGIN LAYOUT FIRST STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Pacifico:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
+        <!-- END LAYOUT FIRST STYLES -->
+        
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        {include includes/core_styles.html}
+        <!-- END GLOBAL MANDATORY STYLES -->
+        
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        {include $__page/includes/styles.html}
+        <!-- END PAGE LEVEL STYLES -->
+        
+        <!-- BEGIN FAVICON -->
+        <link rel="shortcut icon" href="{echo $app['skin_url']}/images/logos/favicon.ico?v=3" type="image/png"/> 
+        <!-- END FAVICON  -->
+    </head>
+    <!-- END HEAD -->
+    <body class="">
+        <!-- BEGIN PRE-LOADER -->
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+        <!-- END PRE-LOADER -->
+        <!-- BEGIN HEADER -->
+        <header class="page-header">
+            <div class="container-fluid">
+                <div class="havbar-header">
+                    <!-- BEGIN LOGO -->
+                    <a id="index" class="navbar-brand" href="{echo $app['app_url']}/home.html"><span id="brand-name">{echo $app['name']}</span><span style="font-size: 8px;">v2</span></a>
+                    <!-- END LOGO -->
+                    <div class="topbar-actions">
+                        <div class="btn-group">
+                            <a class="btn green" href="javascript:;" data-toggle="dropdown" aria-expanded="false">
+                                <i class="icon-user"></i> {echo $connectedUser['first_name'] . ' ' .  $connectedUser['last_name']}
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{echo $app['app_url']}/users/edit/{echo $connectedUser['id']}.html"><i class="fa fa-pencil"></i> Edit Account </a>
+                                </li>
+                                <li>
+                                    <a class="confirmation-button" href="{echo $app['app_url']}/authentication/logout.html"><i class="fa fa-power-off"></i> Logout </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="container-fluid"> 
+            <div class="page-content page-content-popup">
+                <div class="page-content-fixed-header">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <a href="{echo $app['app_url']}/{echo $router['controller']}/{echo $router['action']}">{echo ucfirst($router['controller'])}</a>
+                        </li>
+                    </ul>
+                    <!-- END BREADCRUMBS -->
+                    <div class="content-header-menu">
+                        <!-- BEGIN MENU TOGGLER -->
+                        <button type="button" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- END MENU TOGGLER -->
+                    </div>
+                </div>
+                <!-- BEGIN SIDEBAR MENU -->
+                    {include menu.html}
+                <!-- END SIDEBAR MENU -->
+                <div class="page-fixed-main-content">
+                    <!-- BEGIN PAGE BASE CONTENT -->
+                        {echo $template}
+                    <!-- END PAGE BASE CONTENT -->
+                </div>
+                <!-- BEGIN FOOTER -->
+                <p class="copyright-v2">2016 &copy; {echo $app['company_name']} - Mailer Application .</p>
+                <a href="#index" class="go2top">
+                    <i class="icon-arrow-up"></i>
+                </a>
+                <!-- END FOOTER -->
+            </div>
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN JAVASCRIPTS -->
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_plugins.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            {include $__page/includes/plugins.html}
+            <!-- END PAGE LEVEL PLUGINS -->
+
+            <!-- BEGIN CORE PLUGINS -->   
+            {include includes/core_scripts.html}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            {include $__page/includes/scripts.html}
+            <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- END JAVASCRIPTS -->
+        <!-- BEGIN PREV MESSAGE -->
+        {if(isset($prev_action_message))}
+            {echo $prev_action_message}
+        {/if}
+        <!-- END PREV MESSAGE -->
+        <!-- BEGIN PRE-LOADER REMOVER -->
+        <script> $(function(){ $("body").addClass("loaded"); $(".page-fixed-main-content").css("min-height", ($(window).height() - 150) + "px"); }); </script>
+        <!-- END PRE-LOADER REMOVER -->
+        <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <a data-dismiss="modal" class="btn blue-madison" href="javascript:;">Close</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="{echo $app['skin_url']}/scripts/lib/codemirror.css">
+<link rel="stylesheet" href="{echo $app['skin_url']}/scripts/lib/solarized.css">
+<script src="{echo $app['skin_url']}/scripts/lib/codemirror.js"></script>
+<script src="{echo $app['skin_url']}/scripts/lib/livescript.js"></script>
+
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage VMTA Config For : {echo $server['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/servers/vmta.html" class="horizontal-form validated-form" method="POST">
+		
+            <input type="hidden" name="server-id" value="{echo $server['id']}">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">VMTA Config</label>
+                            <textarea class="form-control"  id="cpp-code" name="config"  spellcheck="false">{echo $config}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Save</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
+
+<script>
+var editor = CodeMirror.fromTextArea(document.getElementById("cpp-code"), {
+      mode: "livescript",
+
+       theme: "solarized light",
+        lineNumbers: true
+      });
+     editor.setSize(null, 500);
+</script>

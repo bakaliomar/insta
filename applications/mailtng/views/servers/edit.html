@@ -1,0 +1,155 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage Server : {echo $server['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/servers/save.html" class="horizontal-form validate" method="POST">
+            <input type="hidden" name="server-id" value="{echo $server['id']}">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Server Name</label>
+                            <input type="text" name="server-name" class="form-control" placeholder="Enter Server Name" value="{echo $server['name']}" data-required="true" data-validation-message="Server Name is Required !" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id" data-required="true" data-validation-message="Server Status is Required !">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status} 
+                                        <option {if($row['id'] == $server['status_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Server Provider</label>
+                            <select class="form-control bs-select" title="Select a Server Provider ..." name="server-provider-id" data-required="true" data-validation-message="Server Provider is Required !"> 
+                                {if(isset($providers) && count($providers)>0)}
+                                    {foreach $row in $providers}
+                                        <option {if($row['id'] == $server['provider_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Host Name</label>
+                            <input type="text" name="server-host" class="form-control" placeholder="Enter Host" value="{echo $server['host_name']}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Main IP</label>
+                            <input type="text" name="server-ip" class="form-control" placeholder="Enter Main IP" value="{echo $server['main_ip']}" data-required="true" data-validation-message="Server Main IP is Required !">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">SSH Port</label>
+                            <input type="text" name="server-ssh-port" class="form-control" placeholder="Enter Port" value="{echo $server['ssh_port']}" data-required="true" data-validation-message="Server SSH Port is Required !" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input type="text" name="server-username" class="form-control" placeholder="Enter Username"  value="{echo $server['username']}" data-required="true" data-validation-message="Server Username is Required !" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="text" name="server-password" class="form-control" placeholder="Enter Password"  value="{echo $server['password']}" data-required="true" data-validation-message="Server Password is Required !" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Expiration Date</label>
+                            <div class="input-group date date-picker" data-date-format="mm-dd-yyyy" data-date-start-date="+0d">
+                                <input type="text" class="form-control" readonly name="expiration-date" value="{echo $server['expiration_date']}" data-required="true" data-validation-message="Server Expiration Date is Required !">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form> 
+        <!-- END FORM-->
+        <div class="row">
+            <div class="col-md-12">
+                <!--  -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-list font-blue-dark"></i>
+                            <span class="caption-subject font-blue-dark  uppercase">Available IPs</span>
+                        </div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                                    <i class="fa fa-share"></i>
+                                    <span class="hidden-xs"> Tools </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu pull-right" id="data-list-tools">
+                                    <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                                    <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                                    <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                                    <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                                    <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered table-hover data-list" id="ips-list">
+                                <thead>
+                                    <tr>
+                                        {if(isset($ipsColumns) && count($ipsColumns)>0)}
+                                            {foreach $ipColumn in $ipsColumns}
+                                                <th>{echo ucfirst(str_replace('_',' ',strtolower($ipColumn)))}</th>
+                                            {/foreach}
+                                        {/if}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {if(isset($ipsList) && count($ipsList)>0)}
+                                        {foreach $row in $ipsList}
+                                            <tr> 
+                                                {foreach $row_data in $row}
+                                                    <td>{if($row_data_i == 'id')}<a href="{echo $app['app_url']}/servers/ips/edit/{echo $row['id']}.html">{/if}{if($row_data != null && $row_data != '')}{echo $row_data}{/if}{else}{echo '<center>-</center>'}{/else}{if($row_data_i == 'id')}</a>{/if}</td>
+                                                {/foreach}
+                                            </tr>
+                                        {/foreach}    
+                                    {/if} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: list -->
+            </div>
+        </div>
+    </div>
+</div>

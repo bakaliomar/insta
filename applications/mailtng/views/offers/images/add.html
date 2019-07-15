@@ -1,0 +1,61 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Upload Images ... </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="note note-info">
+            <h4 class="block">Info! How it Works</h4>
+            <p> 
+                Upload Images to a server or all servers ...
+            </p>
+        </div>
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/offers/images/save.html" class="horizontal-form validate" method="POST" enctype="multipart/form-data">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Servers</label>
+                            <select multiple class="form-control bs-select" title="Select a Server ..." name="server-ids[]" >
+                                {if(isset($servers) && count($servers) > 0)}
+                                    {foreach $server in $servers}
+                                        <option  value="{echo $server['id']}"  >{echo $server['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Uplaod Images</label>
+                            <div class="col-md-3">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                            <span class="fileinput-filename"> </span>
+                                        </div>
+                                        <span class="input-group-addon btn default btn-file">
+                                            <span class="fileinput-new"> Select file </span>
+                                            <span class="fileinput-exists"> Change </span>
+                                            <input type="file" name="imagesToUpload"> </span>
+                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Add</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

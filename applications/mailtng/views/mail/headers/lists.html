@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-list font-blue-dark"></i>
+                    <span class="caption-subject font-blue-dark  uppercase">Predefined Headers List</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn blue-dark btn-outline" href="javascript:;" data-toggle="dropdown">
+                            <i class="fa fa-share"></i>
+                            <span class="hidden-xs"> Tools </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right" id="data-list-tools">
+                            <li><a href="javascript:;" data-action="0" class="tool-action"><i class="icon-printer"></i> Print</a></li>
+                            <li><a href="javascript:;" data-action="1" class="tool-action"><i class="icon-check"></i> Copy</a></li>
+                            <li><a href="javascript:;" data-action="2" class="tool-action"><i class="icon-doc"></i> PDF</a></li>
+                            <li><a href="javascript:;" data-action="4" class="tool-action"><i class="icon-cloud-upload"></i> CSV</a></li>
+                            <li><a href="javascript:;" data-action="5" class="tool-action"><i class="icon-list"></i> Columns</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container">
+                    <table class="table table-striped table-bordered table-hover data-list" id="headers-list">
+                        <thead>
+                            <tr>
+                                {if(isset($columns) && count($columns)>0)}
+                                    {foreach $column in $columns}
+                                        <th>{echo ucfirst(str_replace('_',' ',strtolower($column)))}</th>
+                                    {/foreach}
+                                {/if}
+                                <th class="table-button-th"></th>
+                                <th class="table-button-th"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {if(isset($list) && count($list)>0)}
+                                {foreach $row in $list}
+                                    <tr>
+                                        {foreach $row_data in $row}
+                                            <td>{if($row_data_i == 'value')}<a class="show-header" href="#modal-dialog" role="button" data-toggle="modal" data-header="{echo $row['value']}" href="javascript:;">Show Header</a>{/if}{else}{if($row_data != null && $row_data != '')}{echo $row_data}{/if}{else}{echo '<center>-</center>'}{/else}{/else}</td>
+                                        {/foreach}
+                                        <td><center><a class="tooltips" data-container="body" data-placement="top" data-original-title="Edit record" href="{echo $app['app_url']}/mail/headers/edit/{echo $row['id']}.html"><i class="fa fa-edit"></i></a></center></td>
+                                        <td><center><a class="tooltips font-red confirmation-button" data-container="body" data-placement="top" data-original-title="Delete record" href="{echo $app['app_url']}/mail/headers/delete/{echo $row['id']}.html"><i class="fa fa-close"></i></a></center></td>
+                                    </tr>
+                                {/foreach}    
+                            {/if} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+<div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:;" class="close" data-dismiss="modal" aria-hidden="true"></a>
+                <h4 class="modal-title">Header Content</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <textarea class="form-control header-value" style="height: 300px;" spellcheck="false" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" class="btn blue-dark" href="javascript:;">Close</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-list font-blue-dark"></i>
+                    <span class="caption-subject font-blue-dark uppercase">Manage Negative</span>
+                </div>
+                <div class="actions">
+                    <input id="negative-switch" type="checkbox" class="make-switch" checked checked data-on-color="primary" data-off-color="info" data-on-text="&nbsp;Retreive&nbsp;" data-off-text="&nbsp;Drop&nbsp;">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form id="retrieve-form" class="form-horizontal" role="form" method="POST" action="{echo $app['app_url']}/tools/negative/retrieve.html">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Email</label>
+                        <div class="col-md-4">
+                            <div class="input-icon">
+                                <i class="fa fa-envelope"></i>
+                                <input type="email" name="email" class="form-control" placeholder="Email"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Password</label>
+                        <div class="col-md-4">
+                            <div class="input-icon">
+                                <i class="fa fa-user"></i>
+                                <input type="password" name="password" class="form-control" placeholder="Password"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button id="retrieve-form-button" type="submit" class="btn green"><i class="fa fa-envelope"></i> Get Negative</button>
+                        </div>
+                    </div>
+                    <div id="results" class="form-group">
+                        <label class="col-md-2 control-label">Results</label>
+                        <div class="col-md-4">
+                            <textarea id="results-textarea" rows="20" class="form-control" readonly="true"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <form id="send-form" class="form-horizontal" role="form" method="POST" action="{echo $app['app_url']}/tools/negative/send.html" style="display: none">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Servers</label>
+                        <div class="col-md-4">
+                            <select id="servers" class="form-control bs-select" name="server-id" title="Select Servers ...">
+                                {if(isset($serverProviders) && count($serverProviders)>0)}
+                                    {foreach $provider in $serverProviders}
+                                        <optgroup label="{echo $provider['name']}">
+                                            {if(isset($servers) && count($servers)>0)}
+                                                {foreach $row in $servers}
+                                                    {if($row['provider_id'] == $provider['id'])}
+                                                        <option value="{echo $row['id']}">{echo $row['name']}</option>
+                                                    {/if}
+                                                {/foreach}
+                                            {/if}
+                                        </optgroup>
+                                    {/foreach}
+                                {/if}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">IPs</label>
+                        <div class="col-md-4">
+                            <select id="ips" class="form-control bs-select" name="ip-id" title="Select IP ...">
+                                {if(isset($ips) && count($ips)>0)}
+                                    {foreach $ip in $ips}                         
+                                        <option value="{echo $ip['id']}">{echo $ip['value']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Recipient Email</label>
+                        <div class="col-md-4">
+                            <div class="input-icon">
+                                <i class="fa fa-envelope"></i>
+                                <input type="text" name="rcpt" class="form-control" placeholder="Recipient Email"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Header <a class="pull-right tooltips" data-container="body" data-placement="top" data-original-title="Reset the header" id="reset-header" href="javascript:;" style="margin-left: 15px;"><i class="fa fa-power-off"></i></a></label>
+                        <div class="col-md-4">
+                            <textarea id="header" class="form-control" rows="10"  name="header" spellcheck="false" wrap="off" data-original-header="{echo base64_encode($header)}">{echo $header}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Words</label>
+                        <div class="col-md-4">
+                            <textarea rows="20" name="words" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button id="send-form-button" type="submit" class="btn green"><i class="fa fa-envelope"></i> Drop Words</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

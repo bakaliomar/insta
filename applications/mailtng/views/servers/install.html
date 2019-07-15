@@ -1,0 +1,132 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-hoki"></i>
+            <span class="caption-subject font-blue-hoki uppercase">Prepare For Server Installation for <span class="bold">{echo $server['name']}</span></span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form id="prepare-instalation-form" action="#" class="horizontal-form">
+            <div class="form-body">
+                <input type="hidden" id="server-id" value="{echo $server['id']}"/>
+                <input type="hidden" id="server-version" value="{echo $version}"/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="form-section">IP/Domain Mapping</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Use SubDomains</label>
+                                    <select id="use-subdomains" class="form-control">
+                                        <option {if($subdomains == 'enabled')} selected="true" {/if} value="enabled">Enabled</option>
+                                        <option {if($subdomains == 'disabled')} selected="true" {/if} value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">&nbsp;</label>
+                                <div class="form-group">
+                                    <a href="javascript:;" id="select-random-domains" class="btn blue-dark"><i class="fa fa-refresh"></i> Select Random Domains</a>
+                                </div>
+                            </div>
+                        </div>
+                        {if(isset($ips) && count($ips)>0)}
+                            {foreach $row in $ips}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label ips-label bold" map-index="{echo $row_i}" data-ip="{echo $row['ip']}">{echo $row['ip']} {if($row['domain'] != '')} ( {echo $row['domain']} ) {/if}</label>
+                                            <select class="form-control domains-mapping" data-prev="{echo $row['domain']}" map-index="{echo $row_i}">
+                                                <option value="">Select a Domain ...</option>
+                                                {if(isset($domains) && count($domains)>0)}
+                                                    {foreach $domain in $domains}
+                                                    <option value="{echo $domain['id']}" {if($row['id'] != 0 && $domain['ip_id'] == $row['id'])} selected="selected" {/if}>{echo $domain['value']}</option>   
+                                                    {/foreach}
+                                                {/if} 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/foreach}
+                        {/if}
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="form-section">Installation Configuration</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Update IPs</label>
+                                    <select id="update-ips" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Update DNS Records ( SPF , DKIM .. )</label>
+                                    <select id="update-records" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Update Mail Scripts</label>
+                                    <select id="install-mail-scripts" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Install/Reinstall Main Services</label>
+                                    <select id="install-services" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Install/Reinstall PowerMTA</label>
+                                    <select id="install-pmta" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Install/Reinstall Tracking Application</label>
+                                    <select id="install-tracking" class="form-control">
+                                        <option value="enabled">Enabled</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions left">
+                <a href="javascript:;" id="instalation-form-submit" class="btn blue-dark"><i class="fa fa-terminal"></i> Proceed Instalation</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+        <div id="installation-wrapper" style="display: none">
+            <h4>Installing {echo $server['name']} <span id="installation-status"><i class="fa fa-spinner fa-spin"></i></span></h4><br/>
+            <h5>Installation Log :</h5>
+            <div id="installation-proccess" class="scroller" style="height:200px;background: #eee !important;color:#555;font-family: monospace;border: 1px #ccc solid" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#555">
+
+            </div>
+        </div>
+    </div>
+</div>

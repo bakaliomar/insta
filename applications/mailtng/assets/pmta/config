@@ -1,0 +1,145 @@
+############################################################################
+########################### PMTA domains config ############################
+############################################################################
+
+########## PMTA accounting files rules section
+
+# Bounces section
+<acct-file /etc/pmta/bounces/b.csv>
+    records b
+    record-fields bounce bounceCat,timeLogged,rcpt,dsnAction,dsnStatus,dsnDiag,dlvSourceIp,header_Drp_Meta
+    move-to /etc/pmta/bounces/archived/
+    move-interval 2m
+    max-size 50M
+</acct-file>
+
+# Delivered section
+<acct-file /etc/pmta/delivered/d.csv>
+    records d
+    record-fields delivery bounceCat,timeLogged,rcpt,dsnAction,dsnStatus,dsnDiag,dlvSourceIp,header_Drp_Meta
+    move-to /etc/pmta/delivered/archived/
+    move-interval 2m
+    max-size 50M
+</acct-file>
+
+# Deffered section
+<acct-file /etc/pmta/deffered/t.csv>
+    records t
+    record-fields transient bounceCat,timeLogged,rcpt,dsnAction,dsnStatus,dsnDiag,dlvSourceIp,header_Drp_Meta
+    move-interval 2m
+    delete-after never
+</acct-file>
+
+########## Bounce rules section
+<bounce-category-patterns>
+    /spam/ spam-related
+    /junk mail/ spam-related
+    /blacklist/ spam-related
+    /blocked/ spam-related
+    /\bU\.?C\.?E\.?\b/ spam-related
+    /\bAdv(ertisements?)?\b/ spam-related
+    /unsolicited/ spam-related
+    /\b(open)?RBL\b/ spam-related
+    /realtime blackhole/ spam-related
+    /http:\/\/basic.wirehub.nl\/blackholes.html/ spam-related
+    /\bvirus\b/ virus-related
+    /message +content/ content-related
+    /content +rejected/ content-related
+    /quota/ quota-issues
+    /limit exceeded/ quota-issues
+    /mailbox +(is +)?full/ quota-issues
+    /\bstorage\b/ quota-issues
+    /(user|mailbox|recipient|rcpt|local part|address|account|mail drop|ad(d?)ressee) (has|has been|is)? *(currently|temporarily +)?(disabled|expired|inactive|not activated)/ hardbnc
+    /(conta|usu.rio) inativ(a|o)/ hardbnc
+    /Too many (bad|invalid|unknown|illegal|unavailable) (user|mailbox|recipient|rcpt|local part|address|account|mail drop|ad(d?)ressee)/ other
+    /(No such|bad|invalid|unknown|illegal|unavailable) (local +)?(user|mailbox|recipient|rcpt|local part|address|account|mail drop|ad(d?)ressee)/ hardbnc
+    /(user|mailbox|recipient|rcpt|local part|address|account|mail drop|ad(d?)ressee) +(\S+@\S+ +)?(not (a +)?valid|not known|not here|not found|does not exist|bad|invalid|unknown|illegal|unavailable)/ hardbnc
+    /\S+@\S+ +(is +)?(not (a +)?valid|not known|not here|not found|does not exist|bad|invalid|unknown|illegal|unavailable)/ hardbnc
+    /no mailbox here by that name/ hardbnc
+    /my badrcptto list/ hardbnc
+    /not our customer/ hardbnc
+    /no longer (valid|available)/ hardbnc
+    /have a \S+ account/ hardbnc
+    /\brelay(ing)?/ relaying-issues
+    /domain (retired|bad|invalid|unknown|illegal|unavailable)/ hardbnc
+    /domain no longer in use/ hardbnc
+    /domain (\S+ +)?(is +)?obsolete/ hardbnc
+    /denied/ policy-related
+    /prohibit/ policy-related
+    /rejected/ policy-related
+    /refused/ policy-related
+    /allowed/ policy-related
+    /banned/ policy-related
+    /policy/ policy-related
+    /suspicious activity/ policy-related
+    /bad sequence/ protocol-errors
+    /syntax error/ protocol-errors
+    /\broute\b/ routing-errors
+    /\bunroutable\b/ routing-errors
+    /\bunrouteable\b/ routing-errors
+    /^2.\d.\d/ success
+    /^[45]\.1\.1/ hardbnc
+    /^[45]\.1\.2/ hardbnc
+    /^[45]\.3\.5/ bad-configuration
+    /^[45]\.4\.1/ no-answer-from-host
+    /^[45]\.4\.2/ bad-connection
+    /^[45]\.4\.4/ routing-errors
+    /^[45]\.4\.6/ routing-errors
+    /^[45]\.4\.7/ message-expired
+    /^[45]\.7\.1/ policy-related
+    // other    # catch-all
+</bounce-category-patterns>
+
+########## Hosts configuration section
+$_HOST
+
+########## HTTP configuration section
+http-access 0/0 monitor
+http-access 127.0.0.1 monitor
+http-access ::1 monitor
+http-mgmt-port $_PORT
+run-as-root no
+
+########## PMTA log file location section
+log-file /var/log/pmta/pmta.log 
+
+########## PMTA mails process format reading folders section
+pickup /var/spool/mailtng/pickup/ /var/spool/mailtng/bad/
+pickup-retry-interval 5s
+
+<source {pickup}>
+    process-x-virtual-mta yes
+    process-x-envid yes
+    process-x-job yes
+    add-received-header no
+    remove-header parameters
+</source>
+
+########## Sources IP address section
+<source 127.0.0.1>
+    always-allow-relaying yes
+    process-x-virtual-mta yes
+    max-message-size unlimited
+    smtp-service yes
+    allow-mailmerge yes 
+    log-connections yes
+    log-commands yes  	
+    log-data yes  
+</source>
+
+<source 0/0> 
+    log-connections yes
+    log-commands yes 
+    log-data yes  
+</source>
+
+########## SMTP listners section
+smtp-listener 0/0:2025  
+
+########## PMTA Spool section
+<spool /var/spool/pmta>
+    deliver-only no
+</spool>
+
+include /etc/pmta/conf/*.conf
+

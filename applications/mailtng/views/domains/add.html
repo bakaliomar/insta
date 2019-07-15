@@ -1,0 +1,28 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Add New Domains</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/domains/save.html" class="horizontal-form validate" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Domains List</label>
+                            <textarea class="form-control" style="height: 300px;" name="domains" spellcheck="false" data-required="true" data-validation-message="Domains are Required !" ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Save</button>
+                <a class="btn blue-dark submit-loading" href="{echo $app['app_url']}/domains/download.html"><i class="fa fa-download"></i> Get All Domains From Namecheap</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

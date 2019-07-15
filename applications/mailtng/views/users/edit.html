@@ -1,0 +1,94 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage User : {echo $user['name']}</span>
+        </div>
+        <div class="tools">
+            <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+            <a href="" class="reload"> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/users/save.html" class="horizontal-form validate" method="POST">
+            <input type="hidden" name="user-id"value="{echo $user['id']}">
+            <div class="form-body">
+                <div class="row">
+                    {if(isset($connectedUser) && in_array($connectedUser['application_role_id'],[1]))}
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Role Name</label>
+                            <select class="form-control bs-select" title="Select a Role ..." name="role-id" data-required="true" data-validation-message="Role is Required !" >
+                                {if(isset($roles) && count($roles)>0)}
+                                    {foreach $row in $roles}
+                                        <option {if($row['id'] == $user['application_role_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id" data-required="true" data-validation-message="Status is Required !" >
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option {if($row['id'] == $user['status_id'])} selected="selected" {/if} value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">First Name</label>
+                            <input type="text" name="first-name" class="form-control" placeholder="Enter First Name" value="{echo $user['first_name']}" data-required="true" data-validation-message="First name is Required !" >
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Last Name</label>
+                            <input type="text" name="last-name" class="form-control" placeholder="Enter Last Name" value="{echo $user['last_name']}" data-required="true" data-validation-message="Last name is Required !">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Telephone</label>
+                            <input type="text" name="telephone" class="form-control" placeholder="Enter Telephone Number" value="{echo $user['telephone']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input type="text" name="email" class="form-control" placeholder="Enter Email Address" value="{echo $user['email']}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Enter Username" value="{echo $user['username']}" data-required="true" data-validation-message="Username is Required !">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Change Your Password" value=""> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Save Changes</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

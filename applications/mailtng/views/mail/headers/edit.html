@@ -1,0 +1,34 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Manage Header {echo $header['name']}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/mail/headers/save.html" class="horizontal-form" method="POST">
+            <input type="hidden" name="header-id"value="{echo $header['id']}"> 
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Header Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Header Name" value="{echo $header['name']}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Header Value</label>
+                            <textarea class="form-control" style="height: 300px;" name="header" spellcheck="false">{echo base64_decode($header['value'])}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Update</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

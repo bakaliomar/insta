@@ -1,0 +1,26 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+    # ------------------------------------------------------------------------- #
+    #                           Nova Framework 1.0                             #
+    #                                                                           #
+    # This file forwards all requests through to index.php as long as the	#
+    # request is not for a file or directory. This uses ?url , extention        #
+    # and index.php internally.                                                 #
+    # ------------------------------------------------------------------------- #
+
+    # Turn mod_rewrite on (please make sure it's enabled in Apache)
+    RewriteEngine On
+
+    # As long as we're not requesting access to a file...
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # And we're also not requesting access to a directory...
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # And we're also not requesting access to favicon.ico...
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+
+    # Route everything through /framework/index.php
+    RewriteRule ^([a-zA-Z0-9\/\-_]+)\.?([a-zA-Z]+)?$ index.php?url=$1&extension=$2 [QSA,L]
+    # ------------------------------------------------------------------------- #
+</IfModule>

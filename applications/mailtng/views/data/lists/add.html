@@ -1,0 +1,96 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-envelope-open font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Add New Fresh List</span>
+        </div>
+        <div class="tools">
+            <a href="" class="collapse"> </a>
+            <a href="" class="reload"> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/data/lists/save.html" class="horizontal-form validate" method="POST" enctype="multipart/form-data">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">List Name</label>
+                            <input type="text" name="list-name" class="form-control" title="Enter List Name ..." data-required="true" data-validation-message="List name is Required !" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Type</label>
+                            <select id="flag" class="form-control bs-select" name="type">
+                                <option value="fresh">Fresh</option>
+                                <option value="clean">Clean</option>
+                                <option value="openers">Openers</option>
+                                <option value="clickers">Clickers</option>
+                                <option value="leads">Leads</option>
+                                <option value="seeds">Seeds</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">ISP</label>
+                            <select class="form-control bs-select" name="isp-id" title="Select an ISP ...">
+                                {if(isset($isps) && count(isps)>0)}
+                                    {foreach $row in $isps}
+                                        <option {if($row['id'] == 1)} selected="selected" {/if}value="{echo $row['id']}">{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Flag</label>
+                            <select id="flag" class="form-control bs-select" name="flag">
+                                <option value="us" selected="true">US</option>
+                                <option value="uk">UK</option>
+                                <option value="au">AU</option>
+                                <option value="eu">EU</option>
+                                <option value="ca">CA</option>
+                                <option value="ot">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Devide List By</label>
+                            <input type="text" name="devide-by" class="form-control" title="100000" value="100000">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Emails</label>
+                            <br/>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-xlarge" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Select file </span>
+                                        <span class="fileinput-exists"> Change </span>
+                                        <input type="file" name="emails"> </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark"><i class="fa fa-check"></i> Save</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

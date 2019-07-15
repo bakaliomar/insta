@@ -1,0 +1,40 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Add New Application Role</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/users/roles/save.html" class="horizontal-form validated-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Role Name</label>
+                            <input type="text" name="role-name" class="form-control" placeholder="Enter Role Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select class="form-control bs-select" title="Select a Status ..." name="status-id">
+                                {if(isset($status) && count($status)>0)}
+                                    {foreach $row in $status}
+                                        <option value="{echo $row['id']}" {if(strtolower($row['name']) == 'activated')} selected {/if}>{echo $row['name']}</option>
+                                    {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Save</button>
+                <button type="reset" class="btn default"><i class="fa fa-undo"></i> Cancel</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

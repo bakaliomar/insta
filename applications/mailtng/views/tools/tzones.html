@@ -1,0 +1,39 @@
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-blue-dark"></i>
+            <span class="caption-subject font-blue-dark uppercase">Change Time Zones to All Servers</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form action="{echo $app['app_url']}/tools/tzones.html" class="horizontal-form" method="POST">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Time Zone</label>
+                            <select class="form-control bs-select" title="Select a Time Zone ..." name="time-zone">
+                                <option value="GMT-5">GMT-5</option>
+                                <option value="GMT-4">GMT-4</option>
+                                <option value="GMT-3">GMT-3</option>
+                                <option value="GMT-2">GMT-2</option>
+                                <option value="GMT-1">GMT-1</option>
+                                <option value="GMT">GMT</option>
+                                <option value="GMT+1">GMT+1</option>
+                                <option value="GMT+2">GMT+2</option>
+                                <option value="GMT+3">GMT+3</option>
+                                <option value="GMT+4">GMT+4</option>
+                                <option value="GMT+5">GMT+5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn blue-dark submit-loading"><i class="fa fa-check"></i> Change</button>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
